@@ -1,0 +1,18 @@
+<!--
+ - Created by sebastiankessel on 08/27/2019.
+ -->
+
+<!-- Test Message LWC -->
+<template>
+    <lightning-card title="Say What LWC" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <lightning-input label="Message To Send" type="text" value={myMessage} onchange={handleChange}></lightning-input>
+            <lightning-button label="Send Message" onclick={handleClick}></lightning-button>
+            <br>
+            <lightning-button label="Subscribe" onclick={handleSubscribe}></lightning-button>
+            <lightning-button label="Unsubscribe" onclick={handleUnsubscribe}></lightning-button>
+            <p>Latest Message Received</p>
+            <lightning-formatted-text value={receivedMessage}></lightning-formatted-text>
+        </div>
+    </lightning-card>
+</template>

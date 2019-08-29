@@ -1,0 +1,58 @@
+<!--
+ - Created by sebastiankessel on 08/27/2019.
+ -->
+
+<apex:page id="TestMessageVF">
+    <div>
+        <p>Message To Send</p>
+        <input type="text" id="theMessage" />
+        <button onclick="publishMessage()">Send Message</button>
+        <br/>
+        <br/>
+        <p>Subscribe to Say What (must subscribe to receive messages)</p>
+        <button onclick="subscribeMC()">Subscribe</button>
+        <p>Unsubscribe from Say What</p>
+        <button onclick="unsubscribeMC()">Unsubscribe</button>
+        <br/>
+        <br/>
+        <p>Latest Received message:</p>
+        <textarea id="ReceivedMessage" rows="5" style="disabled:true;resize:none;width:100%;"/>
+    </div>
+    <script>
+        // Load the MessageChannel token in a variable
+        var SAYWHATMC = "{!$MessageChannel.SayWhat__c}";
+        var subscriptionToMC;
+
+        function publishMessage() {
+
+            const payload = {
+                sourceSystem: "VF",
+                messageToSend: document.getElementById('theMessage').value
+            };
+
+            sforce.one.publish(SAYWHATMC, payload);
+
+        }
+
+            // Display message in the textarea field
+        function onMCPublished(message) {
+            var textArea = document.querySelector("#ReceivedMessage");
+
+            textArea.innerHTML = message ? 'Message: ' + message.messageToSend + '. Sent From: ' + message.sourceSystem : 'no message payload';
+        }
+
+        function subscribeMC() {
+            if (!subscriptionToMC) {
+                subscriptionToMC = sforce.one.subscribe(SAYWHATMC, onMCPublished);
+            }
+        }
+
+        function unsubscribeMC() {
+            if (subscriptionToMC) {
+                sforce.one.unsubscribe(subscriptionToMC);
+
+                subscriptionToMC = null;
+            }
+        }
+    </script>
+</apex:page>

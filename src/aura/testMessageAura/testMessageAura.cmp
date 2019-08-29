@@ -1,0 +1,21 @@
+<!--
+ - Created by sebastiankessel on 08/27/2019.
+ -->
+
+<aura:component description="testMessageAura" implements="flexipage:availableForAllPageTypes" access="global">
+
+    <aura:attribute type="String" name="myMessage"/>
+    <aura:attribute type="String" name="receivedMessage"/>
+    <lightning:messageChannel type="SayWhat__c" aura:id="sayWhatChannel" onMessage="{!c.handleReceiveMessage}"/>
+
+    <lightning:card title="Say What Aura" iconName="custom:custom14">
+        <div class="slds-m-around_medium">
+            <lightning:input type="text" value="{!v.myMessage}" label="Message To Send"/>
+            <lightning:button label="Send Message" onclick="{! c.handleClick}"/>
+            <br/>
+            <br/>
+            <p>Latest Received Message</p>
+            <lightning:formattedText value="{!v.receivedMessage}"/>
+        </div>
+    </lightning:card>
+</aura:component>
