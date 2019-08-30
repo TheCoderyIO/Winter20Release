@@ -40,6 +40,10 @@ export default class TestMessageLwc extends LightningElement {
     }
 
     handleClick() {
+        publish();
+    }
+
+    publish() {
         const payload = {
             sourceSystem: "lwc",
             messageToSend: this.myMessage
