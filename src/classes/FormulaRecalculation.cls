@@ -1,11 +1,7 @@
-/**
- * Created by triestelaporte on 8/29/19.
- */
-
 @IsTest
-private class AlsoCouldHaveBeenADirtyWord {
+private class FormulaRecalculation {
 	@IsTest
-	static void testBehavior () {
+	static void testBehavior() {
 		List<Account> testAccounts = new List<Account>();
 		testAccounts.add(new Account(Name = 'One'));
 		testAccounts.add(new Account(Name = 'Two'));
